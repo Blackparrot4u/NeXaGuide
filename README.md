@@ -1,0 +1,2 @@
+# NeXaGuide
+A sleek and professional AI platform for career and education guidance. Get help with career assessments, course recommendations, and internship searches.
