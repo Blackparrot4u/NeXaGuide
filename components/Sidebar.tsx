@@ -1,9 +1,10 @@
 import React from 'react';
-import { NeXaGuideLogo, ExcitedIcon, ConfusedIcon, StressedIcon, AssessmentIcon, CareersIcon, ResourcesIcon, CloseIcon } from './icons';
+import { NeXaGuideLogo, ExcitedIcon, ConfusedIcon, StressedIcon, AssessmentIcon, CareersIcon, ResourcesIcon, CloseIcon, PlusIcon } from './icons';
 import ThemeToggle from './ThemeToggle';
 
 interface SidebarProps {
   onSendMessage: (message: string) => void;
+  onNewChat: () => void;
   isOpen: boolean;
   onClose: () => void;
 }
@@ -11,14 +12,14 @@ interface SidebarProps {
 const SidebarButton: React.FC<{ icon: React.ReactNode; label: string; onClick: () => void }> = ({ icon, label, onClick }) => (
   <button
     onClick={onClick}
-    className="w-full flex items-center gap-3 px-4 py-2 text-left text-sm text-gray-700 dark:text-slate-300 hover:bg-gray-200 dark:hover:bg-gray-700 rounded-md transition-colors"
+    className="w-full flex items-center gap-3 px-4 py-2 text-left text-sm text-gray-700 dark:text-slate-300 hover:bg-blue-100 dark:hover:bg-blue-900/50 rounded-md transition-colors"
   >
     <span className="w-5 h-5">{icon}</span>
     <span>{label}</span>
   </button>
 );
 
-const Sidebar: React.FC<SidebarProps> = ({ onSendMessage, isOpen, onClose }) => {
+const Sidebar: React.FC<SidebarProps> = ({ onSendMessage, onNewChat, isOpen, onClose }) => {
   const sidebarClasses = `
     fixed inset-y-0 left-0 z-30
     w-64 bg-white dark:bg-gray-800 
@@ -45,6 +46,15 @@ const Sidebar: React.FC<SidebarProps> = ({ onSendMessage, isOpen, onClose }) => 
         </button>
       </div>
       <nav className="flex-1 mt-6 space-y-6">
+        <div className="px-2">
+          <button
+            onClick={onNewChat}
+            className="w-full flex items-center justify-center gap-2 px-4 py-2 text-sm font-semibold text-white bg-blue-600 hover:bg-blue-700 rounded-lg transition-all transform hover:scale-105"
+          >
+            <PlusIcon className="w-5 h-5" />
+            New Chat
+          </button>
+        </div>
         <div>
           <h2 className="px-4 mb-2 text-xs font-semibold tracking-wider text-gray-500 dark:text-slate-400 uppercase">How are you feeling?</h2>
           <div className="space-y-1">
