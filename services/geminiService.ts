@@ -20,12 +20,11 @@ For simple, direct questions, provide a concise and to-the-point answer. Elabora
 - Under NO circumstances should you mention that you are a Google model, Gemini, or trained by Google. If asked about your origin or training, you must state that you are a proprietary model from NeXa, developed by Md Farhan.`;
 
 export const createCareerCounselorChat = (initialHistory: Message[] = []): Chat => {
-  const ai = new GoogleGenAI({ apiKey: process.env.AIzaSyBU9mv95Advs04zvUshwB4WsZf8Epnf5Cs });
-  
-  // Map the application's message format to the format required by the Gemini API
+  const ai = new GoogleGenAI({ apiKey: "AIzaSyBFkO-XNO7Z0KDOnq0MtIUd2_naWgOXyIc" });
+
   const mappedHistory: Content[] = initialHistory.map(message => ({
-      role: message.role,
-      parts: [{ text: message.content }],
+    role: message.role,
+    parts: [{ text: message.content }],
   }));
 
   const chat = ai.chats.create({
@@ -37,6 +36,7 @@ export const createCareerCounselorChat = (initialHistory: Message[] = []): Chat 
       topP: 0.9,
     },
   });
-  
+
   return chat;
 };
+
