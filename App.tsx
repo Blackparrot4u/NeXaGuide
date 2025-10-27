@@ -104,6 +104,18 @@ const App: React.FC = () => {
     setIsSidebarOpen(false);
   };
 
+  const handleNewChat = () => {
+    setMessages([]);
+    localStorage.removeItem('nexaguide-chat-history');
+    try {
+      chatRef.current = createCareerCounselorChat();
+    } catch (e) {
+      setError("Failed to initialize the AI service. Please check your API key and refresh the page.");
+      console.error(e);
+    }
+    setIsSidebarOpen(false);
+  };
+
   return (
     <div className="flex h-screen font-['Poppins',_sans-serif] bg-gray-100 dark:bg-slate-900 text-gray-800 dark:text-slate-200">
       {isSidebarOpen && (
@@ -114,12 +126,13 @@ const App: React.FC = () => {
         ></div>
       )}
       <Sidebar 
-        onSendMessage={handleSendMessageAndCloseSidebar} 
+        onSendMessage={handleSendMessageAndCloseSidebar}
+        onNewChat={handleNewChat}
         isOpen={isSidebarOpen} 
         onClose={() => setIsSidebarOpen(false)} 
       />
       <div className="flex flex-col flex-1">
-        <header className="md:hidden flex items-center justify-between p-4 bg-white dark:bg-slate-800 border-b border-gray-200 dark:border-slate-700">
+        <header className="md:hidden flex items-center justify-between p-4 bg-white dark:bg-slate-800/80 backdrop-blur-sm border-b border-gray-200 dark:border-slate-700">
           <div className="flex items-center gap-2">
              <NeXaGuideLogo className="w-8 h-8" />
              <h1 className="text-lg font-bold text-gray-900 dark:text-white">NeXaGuide</h1>
@@ -128,7 +141,7 @@ const App: React.FC = () => {
             <MenuIcon className="w-6 h-6" />
           </button>
         </header>
-        <main className="flex-1 overflow-y-auto relative">
+        <main className="flex-1 overflow-y-auto relative bg-white dark:bg-slate-800/50">
           {messages.length === 0 ? (
             <WelcomeScreen onSendMessage={handleSendMessage} />
           ) : (
